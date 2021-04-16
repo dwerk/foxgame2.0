@@ -15,6 +15,10 @@ import {
   HUNGRY,
   FEEDING,
   SLEEP,
+  SCENE_RAIN,
+  SCENE_DAY,
+  SCENE_NIGHT,
+  SCENE_DEAD,
 } from "../constants";
 import { GameStateType } from "../types";
 import GameContext from "./gameContext";
@@ -34,7 +38,7 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
     poopTime: -1,
     timeToStartCelebrating: -1,
     timeToEndCelebrating: -1,
-    scene: 0,
+    scene: SCENE_DAY,
   };
 
   const [gameState, setGameState] = React.useState<GameStateType>(initialState);
@@ -45,7 +49,7 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
       ...initialState,
       current: HATCHING,
       wakeTime: initialState.clock + 3,
-      scene: 0,
+      scene: SCENE_DAY,
     });
   };
 
@@ -56,14 +60,14 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
       wakeTime: -1,
       sleepTime: gameState.clock + DAY_LENGTH,
       hungryTime: getNextHungerTime(gameState.clock),
-      scene: Math.random() > RAIN_CHANCE ? 0 : 1,
+      scene: Math.random() > RAIN_CHANCE ? SCENE_RAIN : SCENE_DAY,
     });
   };
 
   const changeWeather = () => {
     setGameState({
       ...gameState,
-      scene: gameState.scene === 0 ? 1 : gameState.scene === 1 ? 0 : 0,
+      scene: gameState.scene === SCENE_RAIN ? SCENE_DAY : gameState.scene === SCENE_DAY ? SCENE_RAIN : SCENE_RAIN,
     });
   };
 
@@ -121,7 +125,7 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
     setGameState({
       ...gameState,
       current: DEAD,
-      scene: 3,
+      scene: SCENE_DEAD,
       sleepTime: -1,
       hungryTime: -1,
       dieTime: -1,
@@ -143,7 +147,7 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
   const sleep = () => {
     setGameState({
       ...gameState,
-      scene: 2,
+      scene: SCENE_NIGHT,
       current: SLEEP,
       wakeTime: gameState.clock + NIGHT_LENGTH,
       sleepTime: -1,

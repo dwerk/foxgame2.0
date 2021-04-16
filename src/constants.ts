@@ -1,11 +1,18 @@
 //types
 type TimerFunction = (clock: number) => number;
 
+export const SCENE_RAIN = "rain";
+export const SCENE_DAY = "day";
+export const SCENE_NIGHT = "night";
+export const SCENE_DEAD = "dead";
+
+
 export const ICONS = ["fish", "poop", "weather"];
 //The number of milliseconds in the browser for one tick
 export const TICK_RATE = 2000;
 export const RAIN_CHANCE = 0.2;
-export const SCENES = ["day", "rain", "night", "dead"];
+export const DEFAULT_SCENE = SCENE_DAY;
+export const SCENES =  [SCENE_RAIN, SCENE_DAY, SCENE_NIGHT, SCENE_DEAD];
 export const DAY_LENGTH = 60;
 export const NIGHT_LENGTH = 4;
 

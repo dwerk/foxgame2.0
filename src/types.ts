@@ -8,5 +8,5 @@ export interface GameStateType {
   poopTime: number;
   timeToStartCelebrating: number;
   timeToEndCelebrating: number;
-  scene: number;
+  scene: string;
 }
