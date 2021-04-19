@@ -9,7 +9,7 @@ export const SCENE_DEAD = "dead";
 
 export const ICONS = ["fish", "poop", "weather"];
 //The number of milliseconds in the browser for one tick
-export const TICK_RATE = 2000;
+export const TICK_RATE = 1500;
 export const RAIN_CHANCE = 0.2;
 export const DEFAULT_SCENE = SCENE_DAY;
 export const SCENES =  [SCENE_RAIN, SCENE_DAY, SCENE_NIGHT, SCENE_DEAD];
@@ -22,6 +22,7 @@ export const HUNGRY = "HUNGRY";
 export const HATCHING = "HATCHING";
 export const IDLING = "IDLING";
 export const POOPING = "POOPING";
+export const POOPED = "POOPED";
 export const CELEBRATING = "CELEBRATING";
 export const FEEDING = "FEEDING";
 export const INIT = "INIT";

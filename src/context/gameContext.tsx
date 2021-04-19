@@ -8,7 +8,6 @@ interface GameContextType {
   setGameState: React.Dispatch<React.SetStateAction<GameStateType>>;
   gameState: GameStateType;
   performFoxActions: () => void;
-  cleaning: boolean;
 }
 
 const GameContext = createContext<GameContextType | null>(null);

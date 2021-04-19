@@ -9,4 +9,5 @@ export interface GameStateType {
   timeToStartCelebrating: number;
   timeToEndCelebrating: number;
   scene: string;
+  cleaning: boolean;
 }

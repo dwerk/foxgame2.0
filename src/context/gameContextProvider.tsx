@@ -19,6 +19,7 @@ import {
   SCENE_DAY,
   SCENE_NIGHT,
   SCENE_DEAD,
+  POOPED,
 } from "../constants";
 import { GameStateType } from "../types";
 import GameContext from "./gameContext";
@@ -38,11 +39,11 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
     poopTime: -1,
     timeToStartCelebrating: -1,
     timeToEndCelebrating: -1,
+    cleaning: false,
     scene: SCENE_DAY,
   };
 
   const [gameState, setGameState] = React.useState<GameStateType>(initialState);
-  const [cleaning, setCleaning] = React.useState<boolean>(false);
 
   const startGame = () => {
     setGameState({
@@ -60,7 +61,7 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
       wakeTime: -1,
       sleepTime: gameState.clock + DAY_LENGTH,
       hungryTime: getNextHungerTime(gameState.clock),
-      scene: Math.random() > RAIN_CHANCE ? SCENE_RAIN : SCENE_DAY,
+      scene: Math.random() > RAIN_CHANCE ? SCENE_DAY : SCENE_RAIN,
     });
   };
 
@@ -77,8 +78,8 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
       current: CELEBRATING,
       timeToStartCelebrating: -1,
       timeToEndCelebrating: gameState.clock + 2,
+      cleaning: false
     });
-    setCleaning(false);
   };
 
   const endCelebrating = () => {
@@ -86,16 +87,14 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
   };
 
   const cleanUpPoop = () => {
-    if (gameState.current !== POOPING) {
-      return;
-    }
     setGameState({
       ...gameState,
       dieTime: -1,
       timeToStartCelebrating: gameState.clock + 2,
       hungryTime: getNextHungerTime(gameState.clock),
+      current: POOPED,
+      cleaning: true
     });
-    setCleaning(true);
   };
 
   const poop = () => {
@@ -211,7 +210,6 @@ const GameContextProvider: React.FC<GameContextProviderProps> = (props) => {
         setGameState,
         gameState,
         performFoxActions,
-        cleaning,
       }}
     >
       {props.children}
